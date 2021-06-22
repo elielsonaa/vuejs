@@ -50,6 +50,7 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment';
 export default {
   name: "Vacinados",
   data() {
@@ -73,6 +74,9 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    formatDate: function (value) {
+         return moment(String(value)).format('L')
+     } 
   },
   mounted() {
     this.getVacinados();

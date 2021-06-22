@@ -29,7 +29,7 @@
               <td>{{ vacina.nome }}</td>
               <td>{{ vacina.fabricante }}</td>
               <td>{{ vacina.lote }}</td>
-              <td>{{ vacina.validade }}</td>
+              <td>{{ formatDate(vacina.validade) }}</td>
               <td>{{ vacina.doses }}</td>
               <td>{{ vacina.intervalo }}</td>
               <td>
@@ -56,6 +56,7 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment'
 export default {
   name: "Vacinas",
   data() {
@@ -79,7 +80,10 @@ export default {
           this.errored = true;
         })
         .finally(() => (this.loading = false));
-    },
+       },
+        formatDate: function (value) {
+         return moment(String(value)).format('L')
+     } 
   },
   mounted() {
     this.getVacinas();

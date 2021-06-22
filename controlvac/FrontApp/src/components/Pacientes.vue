@@ -31,7 +31,7 @@
               <td>{{ paciente.nome }} {{ paciente.sobrenome }}</td>
               <td>{{ paciente.cpf }}</td>
               <td>{{ paciente.sus }}</td>
-              <td>{{ paciente.nascimento }}</td>
+              <td>{{ formatDate(paciente.nascimento) }}</td>
               <td>{{ paciente.comorbidades }}</td>
               <td>{{ paciente.municipio }}</td>
               <td>{{ paciente.estado }}</td>
@@ -58,6 +58,7 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment';
 export default {
   name: "Pacientes",
   data() {
@@ -80,6 +81,9 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
+    formatDate: function (value) {
+         return moment(String(value)).format('L')
+     }
   },
   mounted() {
     this.getPacientes();

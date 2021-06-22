@@ -15,6 +15,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.7.0",
+    "moment": "^2.29.1",
     "primeicons": "^4.1.0",
     "primevue": "^3.5.1",
     "vue": "^3.1.1",
