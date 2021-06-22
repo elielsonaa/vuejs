@@ -53,5 +53,6 @@ section p {
 }
 .container {
   padding-top: 2em;
+  -ms-flex-item-align: center;
 }
 </style>

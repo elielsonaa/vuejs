@@ -1,13 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import 'primevue/resources/primevue.min.css';
+import 'primeicons/primeicons.css';
+import PrimeVue from 'primevue/config';
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-library.add(fas)
-createApp(App)
-   .component('fa',FontAwesomeIcon)
+
+createApp(App).use(PrimeVue)
    .use(router).mount('#app')
