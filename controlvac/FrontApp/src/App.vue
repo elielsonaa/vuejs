@@ -54,4 +54,11 @@ section p {
   padding-top: 2em;
   -ms-flex-item-align: center;
 }
+.cardhome {
+  padding: 1rem;
+  margin:1rem;
+}
+.card {
+  margin:.6rem;
+}
 </style>
