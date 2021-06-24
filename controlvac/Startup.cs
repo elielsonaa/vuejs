@@ -21,7 +21,6 @@ namespace controlvac
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -30,12 +29,13 @@ namespace controlvac
             services.AddDbContext<DataContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("ConnectVac"))
             );
-            
+
             services.AddControllers();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "FrontApp";
             });
+            services.AddScoped<IRepository, Repository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

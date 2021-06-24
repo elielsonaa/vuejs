@@ -33,10 +33,9 @@
         </nav>
     </header>
 </template>
-<style>
+<style scoped>
     a.navbar-brand {
-        text-align: center;
-        
+        text-align: center;     
     }
     .nav-item {
       font-size: 1.2em;

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <form>
+      <div class="form-row">
       <div class="form-group margin-bottom col-md-2">
         <label for="data-validade">Data da Vacinacao</label>
         <!-- Datepicker as text field -->
@@ -11,7 +12,9 @@
           </div>
         </div>
       </div>
-      <div class="form-inline margin-bottom col-md-5">
+      </div>
+       <div class="form-row">
+      <div class="form-group margin-bottom col-md-5">
         <label for="inputCliente">Paciente</label>
         <input class="form-control mr-sm-2" 
         type="text" 
@@ -19,7 +22,9 @@
         id="inputCliente"
         aria-label="Search">
       </div>
-      <div class="form-inline margin-bottom col-md-5">
+      </div>
+      <div class="form-row">
+      <div class="form-group margin-bottom col-md-5">
         <label for="inputCliente">Vacina</label>
         <input class="form-control mr-sm-2" 
         type="text" 
@@ -27,10 +32,11 @@
         id="inputCliente"
         aria-label="Search">
       </div>
+      </div>
       <div class="form-row">
         <div class="form-group col-md-2 margin-bottom ">
           <label for="inputDoses">Dose Aplicada</label>
-          <input type="number" class="form-control" id="inputDoses" />
+          <input type="number" class="form-control " id="inputDoses" />
         </div>
       </div>
       <div class="form-row">

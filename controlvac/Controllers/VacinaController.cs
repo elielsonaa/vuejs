@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using controlvac.Data;
 using controlvac.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,36 +10,18 @@ namespace controlvac.Controllers
     [ApiController]
     public class VacinaController : ControllerBase
     {
-        public VacinaController()
+        public IRepository _repo { get;}
+        public VacinaController(IRepository repo)
         {
-            
+            _repo = repo;
         }
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok( new [] { new Vacina(
-                    1,
-                    "CoronaVac",
-                    "Sinovac Biotech",
-                    "8979879",
-                    new System.DateTime(2022, 12, 24),
-                    2,
-                    15
-                   ),
-                   new Vacina(
-                    2,
-                    "BioNTech",
-                    "Pfizer BioNTech",
-                    "23124142",
-                    new System.DateTime(2022, 12, 13),
-                    2,
-                    15
-                   )
-                }
-
-                );
+                var res = await _repo.GetVacinasAsync();
+                return Ok(res);
             }
             catch (System.Exception)
             {
@@ -46,11 +30,12 @@ namespace controlvac.Controllers
             }
         }
         [HttpGet("{VacinaId}")]
-        public IActionResult Get(int VacinaId)
+        public async Task<IActionResult> Get(int VacinaId)
         {
             try
             {
-                return Ok();
+                var res = await _repo.GetVacinaByIdAsync(VacinaId);
+                return Ok(res);
             }
             catch (System.Exception)
             {
@@ -59,43 +44,65 @@ namespace controlvac.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Post()
+        public async Task<IActionResult> Post(Vacina vacina)
         {
             try
             {
-                return Ok();
+                _repo.Add(vacina);
+                if (await _repo.SaveAllAsync())
+                {
+                    return Created($"/api/vacina/{vacina.Id}", vacina);
+                }
+
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     "Erro ao enviar informaçoes de vacina!");
             }
+            return BadRequest();
         }
         [HttpPut("{VacinaId}")]
-        public IActionResult Put(int VacinaId)
+        public async Task<IActionResult> Put(int VacinaId, Vacina model)
         {
             try
             {
-                return Ok();
+                //Verifica se existe o paciente antes de alterar
+                var vacina = await _repo.GetVacinaByIdAsync(VacinaId);
+                if (vacina == null) return NotFound();
+                _repo.Update(model);
+                if (await _repo.SaveAllAsync())
+                {
+                    vacina = await _repo.GetVacinaByIdAsync(VacinaId);
+                    return Created($"/api/vacina/{vacina.Id}", vacina);
+                }
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     "Erro ao atualizar informaçoes de vacina!");
             }
+            return BadRequest();
         }
         [HttpDelete("{VacinaId}")]
-        public IActionResult Delete(int VacinaId)
+        public async Task<IActionResult> Delete(int VacinaId)
         {
             try
             {
-                return Ok();
+                var vacina = await _repo.GetVacinaByIdAsync(VacinaId);
+                if (vacina == null) return NotFound();
+                _repo.Delete(vacina);
+                if (await _repo.SaveAllAsync())
+                {
+                    return Ok($"Vacina excluída com sucesso!");
+                }
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError,
                     "Erro ao excluir informaçoes de vacina!");
             }
+            return BadRequest();
         }
     }
 }

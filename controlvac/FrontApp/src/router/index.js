@@ -3,6 +3,9 @@ import Home from "@/components/Home.vue";
 import Pacientes from "@/components/Pacientes.vue";
 import Vacinas from "@/components/Vacinas.vue";
 import Vacinados from "@/components/Vacinados.vue";
+import Paciente from "@/view/Paciente.vue";
+import Vacina from "@/view/Vacina.vue";
+import Vacinacao from "@/view/Vacinacao.vue";
 
 const routes = [
   {
@@ -24,6 +27,21 @@ const routes = [
     path: "/vacinados",
     name: "Vacinados",
     component: Vacinados,
+  },
+  {
+    path: "/vacina/:id",
+    name: "Vacina",
+    component: Vacina,
+  },
+  {
+    path: "/paciente/:id",
+    name: "Paciente",
+    component: Paciente,
+  },
+  {
+    path: "/vacinacao/:id",
+    name: "Vacinacao",
+    component: Vacinacao,
   }
 ];
 

@@ -26,6 +26,5 @@ namespace controlvac.Models
         [Required(ErrorMessage = "O Paciente é Obrigatório")]
         [Display(Name = "Total Doses")]
         public int DosesTomadas { get; private set; }
-        public List<Paciente> Pacientes { get; private set; }
     }
 }

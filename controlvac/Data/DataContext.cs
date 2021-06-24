@@ -12,5 +12,9 @@ namespace controlvac.Data
         public DbSet<Paciente> Pacientes { get; set; }
         public DbSet<Vacinacao> Vacinacoes { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder){
+
+            modelBuilder.Entity<Paciente>().Ignore(p => p.Vacinacao);
+        }
     }
 }

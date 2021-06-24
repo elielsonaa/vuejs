@@ -5,6 +5,9 @@
       <section v-if="errors">
         <p>Não conseguimos recuperar os dados</p>
       </section>
+      <section v-if="pacientes.length < 1">
+        <p>Não encontramos registros lançados</p>
+      </section>
       <p v-if="loading">
         <em><i class="pi pi-spin pi-spinner" style="fontSize: 2rem"></i></em>
       </p>
@@ -16,11 +19,12 @@
         >
           <thead>
             <tr>
+              <th>Id</th>
               <th>Nome</th>
+              <th>Sexo</th>
               <th>CPF</th>
-              <th>Nº Cartão SUS</th>
+              <th>Cartão SUS</th>
               <th>Nascimento</th>
-              <th>Comorbidade?</th>
               <th>Municipio</th>
               <th>Estado</th>
               <th>Ações</th>
@@ -28,16 +32,20 @@
           </thead>
           <tbody>
             <tr v-for="paciente of pacientes" :key="paciente.id">
+              <td>{{ paciente.id }}</td>
               <td>{{ paciente.nome }} {{ paciente.sobrenome }}</td>
+              <td>{{ paciente.sexo }} </td>
               <td>{{ paciente.cpf }}</td>
               <td>{{ paciente.sus }}</td>
               <td>{{ formatDate(paciente.nascimento) }}</td>
-              <td>{{ paciente.comorbidades }}</td>
               <td>{{ paciente.municipio }}</td>
               <td>{{ paciente.estado }}</td>
               <td>
-                <a href="#" class="link-success"><i class="pi pi-pencil btn-space"  style="color: green"></i></a>
-                <a href="#" class="link-danger"><i class="pi pi-trash btn-space" style="color: red"></i></a>
+                <a href="#" class="link-success" data-toggle="tooltip" title="Visualizar"><i class="pi pi-book btn-space" style="color: green"></i></a>
+                <router-link v-bind:to="`/paciente/${paciente.id}`">
+                 <a href="#" class="link-warning" data-toggle="tooltip" title="Editar"><i class="pi pi-pencil btn-space"  style="color: orange"></i></a>
+                </router-link>
+                <a href="#" class="link-danger" data-toggle="tooltip" title="Excluir"><i class="pi pi-trash btn-space" style="color: red"></i></a>
               </td>
             </tr>
           </tbody>

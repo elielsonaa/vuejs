@@ -1,7 +1,7 @@
 <template>
  <div class="app">
   <nav-menu></nav-menu>
-  <router-view />
+  <router-view :key="$route.fullPath"/>
  </div>
 </template>
 
@@ -49,10 +49,18 @@ h1 {
 section p {
   color: firebrick;
   font-style: oblique;
+  font-weight: bold;
+}
+thead {
+   background-color: #cd1076;
+}
+th {
+  color: #f8f9fa;
 }
 .container {
   padding-top: 2em;
   -ms-flex-item-align: center;
+  text-align: left;
 }
 .cardhome {
   padding: 1rem;

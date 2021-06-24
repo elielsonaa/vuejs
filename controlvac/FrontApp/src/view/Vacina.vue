@@ -28,7 +28,7 @@
           placeholder="00000000"
         />
       </div>
-      <div class="form-group margin-bottom col-md-2">
+      <div class="form-group margin-bottom col-md-4">
         <label for="data-validade">Data de Validade"</label>
         <!-- Datepicker as text field -->
         <div class="input-group date" data-date-format="dd/mm/yyyy">
@@ -38,12 +38,12 @@
           </div>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group col-md-2 margin-bottom ">
+      <div class="form-row margin-bottom col-md-12">
+        <div class="form-group col-md-2">
           <label for="inputDoses">Nº de Doses</label>
           <input type="number" class="form-control" id="inputDoses" />
         </div>
-        <div class="form-group col-md-2 margin-bottom ">
+        <div class="form-group col-md-2 ">
           <label for="inputIntDoses">Intervado entre Doses</label>
           <input type="number" class="form-control" id="inputIntDoses" />
         </div>
@@ -83,6 +83,7 @@ export default {
         "Sinovac",
         "Sinopharm",
       ],
+      vacina:[],
     };
   },
 };

@@ -22,17 +22,32 @@ namespace controlvac.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Comorbidades")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Cep")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("Nacimento")
+                    b.Property<string>("Endereco")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Estado")
+                        .HasMaxLength(2)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Municipio")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Nascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

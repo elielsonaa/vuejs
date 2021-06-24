@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using controlvac.Data;
 using controlvac.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,84 +10,92 @@ namespace controlvac.Controllers
     [ApiController]
     public class PacienteController : ControllerBase
     {
-        public PacienteController()
+        public IRepository _repo { get; }
+        public PacienteController(IRepository repo)
         {
-            
+            _repo = repo; //Injetando repositório
         }
         [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(new[] { new Paciente(
-                    1,
-                    "22408420830",
-                    "Elielson",
-                    "de Azevedo Andrade",
-                    "973820",
-                    new System.DateTime(1983, 08, 09),
-                    EComorbidade.Nao,
-                    "Capivari",
-                    "SP"
-                   ),
-                  new Paciente(
-                    2,
-                    "2289658984",
-                    "Marcio",
-                    "Augusto dos Santos",
-                    "123245",
-                    new System.DateTime(1983, 08, 09),
-                    EComorbidade.Nao,
-                    "Capivari",
-                    "SP"
-                   )
-                });
-        }
-        [HttpGet("{PacienteId}")]
-        public IActionResult Get(int PacienteId)
+        public async Task<IActionResult> Get()
         {
             try
             {
-                return Ok();
+                var res = await _repo.GetPacientesAsync();
+                return Ok(res);
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao buscar informaçoes de paciente!");
-            } 
+            }
         }
-        [HttpPost]
-        public IActionResult Post()
+        [HttpGet("{PacienteId}")]
+        public async Task<IActionResult> Get(int PacienteId)
         {
             try
             {
-                return Ok();
+                var res = await _repo.GetPacienteByIdAsync(PacienteId);
+                return Ok(res);
+            }
+            catch (System.Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao buscar informaçoes de paciente!");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Post(Paciente paciente)
+        {
+            try
+            {
+                _repo.Add(paciente);
+                if(await _repo.SaveAllAsync()){
+                    return Created($"/api/paciente/{paciente.Id}", paciente);
+                }
+                
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao enviar informaçoes de paciente!");
             }
+            return BadRequest();
         }
         [HttpPut("{PacienteId}")]
-        public IActionResult Put(int PacienteId)
+        public async Task<IActionResult> Put(int PacienteId, Paciente model)
         {
             try
-            {
-                return Ok();
+            { 
+                //Verifica se existe o paciente antes de alterar
+                var paciente = await _repo.GetPacienteByIdAsync(PacienteId);
+                if(paciente == null) return NotFound();
+                _repo.Update(model);
+                if (await _repo.SaveAllAsync()){
+                    paciente = await _repo.GetPacienteByIdAsync(PacienteId);
+                    return Created($"/api/paciente/{paciente.Id}", paciente);
+                }
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao atualizar informaçoes de paciente!");
             }
+            return BadRequest();
         }
         [HttpDelete("{PacienteId}")]
-        public IActionResult Delete(int PacienteId)
+        public async Task<IActionResult> Delete(int PacienteId)
         {
             try
             {
-                return Ok();
+                var paciente = await _repo.GetPacienteByIdAsync(PacienteId);
+                if (paciente == null) return NotFound();
+                _repo.Delete(paciente);
+                if (await _repo.SaveAllAsync())
+                {
+                    return Ok($"Paciente excluído com sucesso!");
+                }
             }
             catch (System.Exception)
             {
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro ao excluir informaçoes de paciente!");
             }
+            return BadRequest();
         }
     }
 }

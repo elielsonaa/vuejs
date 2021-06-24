@@ -5,6 +5,9 @@
       <section v-if="errored">
         <p>Não conseguimos recuperar os dados</p>
       </section>
+      <section v-if="vacinas.length < 1">
+        <p>Não encontramos registros lançados</p>
+      </section>
       <p v-if="loading">
         <em><i class="pi pi-spin pi-spinner" style="fontSize: 2rem"></i></em>
       </p>
@@ -16,16 +19,19 @@
         >
           <thead>
             <tr>
+              <th>Id</th>
               <th>Nome</th>
               <th>Fabricante</th>
               <th>Lote</th>
               <th>Validade</th>
               <th>Doses</th>
               <th>Intervalo(dias)</th>
+              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="vacina of vacinas" :key="vacina.id">
+              <td>{{ vacina.id }}</td>
               <td>{{ vacina.nome }}</td>
               <td>{{ vacina.fabricante }}</td>
               <td>{{ vacina.lote }}</td>
@@ -33,8 +39,11 @@
               <td>{{ vacina.doses }}</td>
               <td>{{ vacina.intervalo }}</td>
               <td>
-                <a href="#" class="link-success"><i class="pi pi-pencil btn-space"  style="color: green"></i></a>
-                <a href="#" class="link-danger"><i class="pi pi-trash btn-space" style="color: red"></i></a>
+                <a href="#" class="link-success" data-toggle="tooltip" title="Visualizar"><i class="pi pi-book btn-space" style="color: green"></i></a>
+                <router-link v-bind:to="`/vacina/${vacina.id}`">
+                 <a href="#" class="link-warning" data-toggle="tooltip" title="Editar"><i class="pi pi-pencil btn-space"  style="color: orange"></i></a>
+                </router-link>
+                <a href="#" class="link-danger" data-toggle="tooltip" title="Excluir"><i class="pi pi-trash btn-space" style="color: red"></i></a>
               </td>
             </tr>
     

@@ -58,8 +58,12 @@ namespace controlvac.Migrations
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Sobrenome = table.Column<string>(type: "TEXT", nullable: true),
                     Sus = table.Column<string>(type: "TEXT", nullable: true),
-                    Nacimento = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Comorbidades = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Sexo = table.Column<string>(type: "TEXT", nullable: false),
+                    Nascimento = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Endereco = table.Column<string>(type: "TEXT", nullable: true),
+                    Cep = table.Column<string>(type: "TEXT", nullable: true),
+                    Municipio = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    Estado = table.Column<string>(type: "TEXT", maxLength: 2, nullable: true),
                     VacinacaoId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
