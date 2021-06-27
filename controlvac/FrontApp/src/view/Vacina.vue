@@ -1,18 +1,19 @@
 <template>
   <div class="container">
-    <form>
+    <form @submit.prevent="addVacina(vacina)">
       <div class="form-group margin-bottom col-md-6">
         <label for="inputNome">Nome da Vacina</label>
         <input
           type="text"
           class="form-control"
           id="inputNome"
+          v-model="vacina.nome"
           placeholder="CoronaVac etc."
         />
       </div>
       <div class="form-group col-md-5 margin-bottom ">
         <label for="inputFabricante">Fabricante</label>
-        <select id="inputFabricante" class="form-control">
+        <select id="inputFabricante" v-model="vacina.fabricante" class="form-control">
           <option selected>Selecione...</option>
           <option v-for="(fabricante, index) in fabricantes" :key="index">{{
             fabricante
@@ -25,6 +26,7 @@
           type="text"
           class="form-control"
           id="inputLote"
+          v-model="vacina.lote"
           placeholder="00000000"
         />
       </div>
@@ -32,7 +34,7 @@
         <label for="data-validade">Data de Validade"</label>
         <!-- Datepicker as text field -->
         <div class="input-group date" data-date-format="dd/mm/yyyy">
-          <input type="date" class="form-control" placeholder="dd/mm/yyyy" />
+          <input type="date" v-model="vacina.validade" class="form-control" placeholder="dd/mm/yyyy" />
           <div class="input-group-addon">
             <span class="glyphicon glyphicon-th"></span>
           </div>
@@ -41,11 +43,11 @@
       <div class="form-row margin-bottom col-md-12">
         <div class="form-group col-md-2">
           <label for="inputDoses">Nº de Doses</label>
-          <input type="number" class="form-control" id="inputDoses" />
+          <input type="number" v-model="vacina.doses" class="form-control" id="inputDoses" />
         </div>
         <div class="form-group col-md-2 ">
           <label for="inputIntDoses">Intervado entre Doses</label>
-          <input type="number" class="form-control" id="inputIntDoses" />
+          <input type="number" v-model="vacina.intervalo" class="form-control" id="inputIntDoses" />
         </div>
       </div>
       <div class="bd-buttom">
@@ -84,7 +86,12 @@ export default {
         "Sinopharm",
       ],
       vacina:[],
-    };
+    }
   },
+    methods: {
+      addVacina(vacina){
+         console.log(vacina)
+      }
+  }
 };
 </script>

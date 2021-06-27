@@ -47,7 +47,9 @@
             </tr>
           </tbody>
         </table>
+        
         <div class="bd-buttom">
+          <router-link v-bind:to="`/vacinacao`">
           <button
             type="submit"
             class="btn btn-primary btn-lg btn-space"
@@ -55,6 +57,7 @@
           >
             Informar Vacinacao
           </button>
+         </router-link>
         </div>
       </div>
     </div>
@@ -93,7 +96,7 @@ export default {
      } 
   },
   mounted() {
-    this.getVacinados();
+      this.getVacinados();
   },
 };
 </script>

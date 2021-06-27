@@ -51,6 +51,7 @@
           </tbody>
         </table>
         <div class="bd-buttom">
+          <router-link v-bind:to="`/paciente`">
           <button
             type="submit"
             class="btn btn-primary btn-lg btn-space"
@@ -58,6 +59,7 @@
           >
             Novo Paciente
           </button>
+        </router-link>
         </div>
       </div>
     </div>

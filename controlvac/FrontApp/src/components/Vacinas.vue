@@ -46,10 +46,10 @@
                 <a href="#" class="link-danger" data-toggle="tooltip" title="Excluir"><i class="pi pi-trash btn-space" style="color: red"></i></a>
               </td>
             </tr>
-    
           </tbody>
         </table>
         <div class="bd-buttom">
+           <router-link v-bind:to="`/vacina`">
           <button
             type="submit"
             class="btn btn-primary btn-lg btn-space"
@@ -57,6 +57,7 @@
           >
             Nova Vacina
           </button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -95,7 +96,7 @@ export default {
      } 
   },
   mounted() {
-    this.getVacinas();
+      this.getVacinas();
   },
 };
 </script>
